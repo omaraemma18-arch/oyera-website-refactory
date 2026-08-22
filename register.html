@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Oyera Auto Service Bay Ltd (OAS Bay)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="logo">
+        <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
+        <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html#services">Services</a></li>
+        <li><a href="services.html#pricing">Pricing</a></li>
+        <li id="authNavSlot"></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-page">
+      <div class="auth-card">
+        <span class="section-tag">New Account</span>
+        <h1>Create Account</h1>
+        <p class="auth-sub">Register as a customer, technician, senior technician, or admin.</p>
+
+        <div class="auth-error" id="registerError"></div>
+
+        <form id="registerForm">
+          <label>
+            <span>Role</span>
+            <select id="regRole" required>
+              <option value="customer">Customer</option>
+              <option value="technician">Technician</option>
+              <option value="senior_technician">Senior Technician</option>
+              <option value="admin">Admin</option>
+            </select>
+          </label>
+          <label>
+            <span>Full Name</span>
+            <input type="text" id="regName" required placeholder="Jane Doe">
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" id="regEmail" required placeholder="you@email.com">
+          </label>
+          <label>
+            <span>Phone</span>
+            <input type="tel" id="regPhone" placeholder="07XX XXX XXX">
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" id="regPassword" required placeholder="At least 6 characters" minlength="6">
+          </label>
+          <label>
+            <span>Confirm Password</span>
+            <input type="password" id="regPasswordConfirm" required placeholder="Repeat your password" minlength="6">
+          </label>
+          <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+        </form>
+
+        <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>
