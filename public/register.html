@@ -37,10 +37,10 @@
 
         <div class="auth-error" id="registerError"></div>
 
-        <form id="registerForm">
+        <form id="registerForm" action="/signup" method="post">
           <label>
             <span>Role</span>
-            <select id="regRole" required>
+            <select name="regRole" id="regRole" required>
               <option value="customer">Customer</option>
               <option value="technician">Technician</option>
               <option value="senior_technician">Senior Technician</option>
@@ -49,23 +49,23 @@
           </label>
           <label>
             <span>Full Name</span>
-            <input type="text" id="regName" required placeholder="Jane Doe">
+            <input name="regName" type="text" id="regName" required placeholder="Jane Doe">
           </label>
           <label>
             <span>Email</span>
-            <input type="email" id="regEmail" required placeholder="you@email.com">
+            <input name="regEmail" type="email" id="regEmail" required placeholder="you@email.com">
           </label>
           <label>
             <span>Phone</span>
-            <input type="tel" id="regPhone" placeholder="07XX XXX XXX">
+            <input name="regPhone" type="tel" id="regPhone" placeholder="07XX XXX XXX">
           </label>
           <label>
             <span>Password</span>
-            <input type="password" id="regPassword" required placeholder="At least 6 characters" minlength="6">
+            <input name="regPassword" type="password" id="regPassword" required placeholder="At least 6 characters" minlength="6">
           </label>
           <label>
             <span>Confirm Password</span>
-            <input type="password" id="regPasswordConfirm" required placeholder="Repeat your password" minlength="6">
+            <input name="regPasswordConfirm" type="password" id="regPasswordConfirm" required placeholder="Repeat your password" minlength="6">
           </label>
           <button type="submit" class="btn btn-primary btn-full">Create Account</button>
         </form>

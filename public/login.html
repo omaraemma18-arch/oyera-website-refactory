@@ -37,10 +37,10 @@
 
         <div class="auth-error" id="loginError"></div>
 
-        <form id="loginForm">
+        <form id="loginForm" action="/login" method="post">
           <label>
             <span>Role</span>
-            <select id="loginRole" required>
+            <select name="loginRole" id="loginRole" required>
               <option value="customer">Customer</option>
               <option value="technician">Technician</option>
               <option value="senior_technician">Senior Technician</option>
@@ -49,11 +49,11 @@
           </label>
           <label>
             <span>Email</span>
-            <input type="email" id="loginEmail" required placeholder="you@email.com">
+            <input name="loginEmail"  type="email" id="loginEmail" required placeholder="you@email.com">
           </label>
           <label>
             <span>Password</span>
-            <input type="password" id="loginPassword" required placeholder="••••••••">
+            <input name="loginPassword" type="password" id="loginPassword" required placeholder="••••••••">
           </label>
           <button type="submit" class="btn btn-primary btn-full">Log In</button>
         </form>
@@ -63,10 +63,5 @@
       </div>
     </div>
   </main>
-
-  <script src="js/main.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/login.js"></script>
 </body>
 </html>
