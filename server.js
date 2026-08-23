@@ -2,12 +2,34 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require('path');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 
+
+//importing mongoose models
+const User = require('./models/user');
 
 // Middleware to parse incoming data
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
+
+//3.configarations
+//DB configarations
+mongoose.connect(process.env.DATABASE,{})
+mongoose.connection
+.once('open',() =>{
+    console.log('connected to monogodb successfully..');
+})
+.on('error',(err)=>{
+    console.error('mongo DB connection error: ',err);
+})
+
+//time loger
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] Request received at ${req.method} ${req.url}`);
+  next();
+});
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,10 +41,69 @@ app.use(express.json());
 app.post('/login', (req, res) => {
 console.log(req.body)
 });
-//signup post route
-app.post('/signup', (req, res) => {
-console.log(req.body)
+app.post('/login', async (req, res) => {
+  try {
+    const { loginRole, loginEmail, loginPassword } = req.body;
+
+    const user = await User.findOne({
+      role: loginRole,
+      email: loginEmail,
+      password: loginPassword
+    });
+
+    if (!user) {
+      return res.status(401).send('Invalid email, password, or role. <a href="/login">Try again</a>');
+    }
+
+    console.log(`Login successful: ${user.email}`);
+    res.redirect('/dashboard');
+
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).send('Server error during login.');
+  }
 });
+
+//signup post route
+app.post('/signup', async(req, res) => {
+//console.log(req.body)
+try{
+  const{
+    regRole, 
+      regName, 
+      regEmail, 
+      regPhone, 
+      regPassword, 
+      regPasswordConfirm
+  } = req.body;
+  //varify passwad
+  if(regPassword !== regPasswordConfirm){
+       return res.status(400).send('Passwords do not match. <a href="/signup">Try again</a>');
+  }
+  //check if the user exists
+  const existingUser = await User.findOne({ email:regEmail });
+    if (existingUser) {
+      return res.status(400).send('Email is already registered. <a href="/signup">Try again</a>');
+    }
+    
+//creating user in mongo db
+await User.create({
+      role: regRole,
+      name: regName,
+      email: regEmail,
+      phone: regPhone,
+      password: regPassword
+    });
+    console.log(`User registered successfully: ${regEmail}`);
+res.redirect('login')
+
+} catch (err) {
+    console.error('Signup error:', err);
+    res.status(500).send('Server error during registration.');
+  }
+});
+
+
 //addinventory
 app.post('/addinventory', (req, res) => {
 console.log(req.body)
