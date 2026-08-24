@@ -38,9 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 //login post route
-app.post('/login', (req, res) => {
-console.log(req.body)
-});
 app.post('/login', async (req, res) => {
   try {
     const { loginRole, loginEmail, loginPassword } = req.body;
@@ -48,7 +45,7 @@ app.post('/login', async (req, res) => {
     const user = await User.findOne({
       role: loginRole,
       email: loginEmail,
-      password: loginPassword
+    
     });
 
     if (!user) {
@@ -66,7 +63,6 @@ app.post('/login', async (req, res) => {
 
 //signup post route
 app.post('/signup', async(req, res) => {
-//console.log(req.body)
 try{
   const{
     regRole, 
@@ -78,12 +74,12 @@ try{
   } = req.body;
   //varify passwad
   if(regPassword !== regPasswordConfirm){
-       return res.status(400).send('Passwords do not match. <a href="/signup">Try again</a>');
+       return res.redirect('Passwords do not match. <a href="/signup">Try again</a>');
   }
   //check if the user exists
   const existingUser = await User.findOne({ email:regEmail });
     if (existingUser) {
-      return res.status(400).send('Email is already registered. <a href="/signup">Try again</a>');
+      return res.redirect('Email is already registered. <a href="/signup">Try again</a>');
     }
     
 //creating user in mongo db
@@ -95,11 +91,11 @@ await User.create({
       password: regPassword
     });
     console.log(`User registered successfully: ${regEmail}`);
-res.redirect('login')
+res.redirect('/login')
 
 } catch (err) {
     console.error('Signup error:', err);
-    res.status(500).send('Server error during registration.');
+    res.redirect('Server error during registration.');
   }
 });
 
