@@ -5,14 +5,21 @@ const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// Middleware to parse incoming data
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
+
+//static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 //importing mongoose models
 const User = require('./models/user');
+const addInventoryRoutes = require('./routes/addInventoryRoutes')
 
-// Middleware to parse incoming data
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
+app.use('/', addInventoryRoutes);
+
 
 //3.configarations
 //DB configarations
@@ -31,8 +38,6 @@ app.use((req, res, next) => {
   next();
 });
 
-//static files
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware to  request bodies
 app.use(express.json());
@@ -100,14 +105,11 @@ res.redirect('/login')
 });
 
 
-//addinventory
-app.post('/addinventory', (req, res) => {
-console.log(req.body)
-});
 //addnnewcustomer
 app.post('/addnewcustomer', (req, res) => {
 console.log(req.body)
 });
+
 
 
 // Basic GET route

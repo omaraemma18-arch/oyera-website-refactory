@@ -45,7 +45,7 @@
           <div class="auth-error" id="addItemError"></div>
           <div class="auth-error" id="addItemSuccess" style="background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.3); color: #4ade80;"></div>
 
-          <form id="addItemForm" novalidate action="/addinventory" method="post">
+          <form id="addItemForm" action="/addinventory" method="post">
             <label>
               <span>Item Name <span style="color:#f87171;">*</span></span>
               <input name="itemName" type="text" id="itemName" required placeholder="e.g. Engine Oil 5W-30 (5L)">
@@ -53,7 +53,7 @@
             </label>
             <label>
               <span>Category</span>
-              <select name="itemCategory" id="itemCategory">
+              <select name="category" id="itemCategory">
                 <option>Engine Oil</option>
                 <option>Gearbox Oil</option>
                 <option>Brake Fluid</option>
@@ -65,16 +65,16 @@
             </label>
             <label>
               <span>Supplier</span>
-              <input name="itemSupplier" type="text" id="itemSupplier" placeholder="e.g. Total Uganda">
+              <input name="supplier" type="text" id="itemSupplier" placeholder="e.g. Total Uganda">
             </label>
             <label>
               <span>Unit Cost (UGX) <span style="color:#f87171;">*</span></span>
-              <input name="itemCost"  type="number" id="itemCost" min="0" required placeholder="e.g. 45000">
+              <input name="cost"  type="number" id="itemCost" min="0" required placeholder="e.g. 45000">
               <span class="field-error" id="itemCostError"></span>
             </label>
             <label>
               <span>Quantity in Stock <span style="color:#f87171;">*</span></span>
-              <input name="itemQty" type="number" id="itemQty" min="0" step="1" required placeholder="e.g. 10">
+              <input name="quantity" type="number" id="itemQty" min="0" step="1" required placeholder="e.g. 10">
               <span class="field-error" id="itemQtyError"></span>
             </label>
 
@@ -105,10 +105,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/inventory-data.js"></script>
-  <script src="js/additems.js"></script>
+ 
 </body>
 </html>
