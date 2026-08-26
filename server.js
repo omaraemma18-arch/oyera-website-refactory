@@ -29,15 +29,11 @@ mongoose.connection
 // 4. Router Imports & Mounting
 const addInventoryRoutes = require('./routes/addInventoryRoutes');
 const authRoutes = require('./routes/authRoutes');
+const addNewCustomerRoutes = require('./routes/addNewCustomerRoutes');
 
 app.use('/', addInventoryRoutes);
 app.use('/', authRoutes);
-
-// 5. Additional POST Routes
-app.post('/addnewcustomer', (req, res) => {
-  console.log('Customer Data:', req.body);
-  res.redirect('/dashboard');
-});
+app.use('/',addNewCustomerRoutes)
 
 // routes
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));

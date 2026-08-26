@@ -49,22 +49,22 @@
             </label>
             <label>
               <span>Vehicel size Category</span>
-              <select name="VehicelCategory" id="itemCategory">
-                <option>small</option>
-                <option>medium</option>
-                <option>heavy</option>
+              <select name="vehicelSizeCategory" id="vehicelSizeCategory">
+                <option value="small">small</option>
+                <option value="medium">medium</option>
+                <option value="heavy">heavy</option>
               </select>
             </label>
-  <label>
+            <label>
               <span>Service Category</span>
-              <select name="ServiceCategory" id="itemCategory">
-                <option>wheel alignment</option>
-                <option>flate tyre</option>
-                <option>paint </option>
-                <option>ppf</option>
-                <option>engine oil change</option>
-                <option>engine</option>
-                <option>Other</option>
+              <select name="serviceCategory" id="serviceCategory">
+          <option value="wheel alignment">wheel alignment</option>
+            <option value="flat tyre">flat tyre</option>
+            <option value="paint">paint</option>
+            <option value="ppf">ppf</option>
+            <option value="engine oil change">engine oil change</option>
+            <option value="engine">engine</option>
+            <option value="Other">Other</option>
               </select>
             </label>
 
@@ -74,28 +74,28 @@
             </label>
             <label>
               <span>Service cost (UGX) <span style="color:#f87171;">*</span></span>
-              <input name="itemCost"  type="number" id="itemCost" min="3000" required placeholder="e.g. 45000">
+              <input name="serviceCost"  type="number" id="itemCost" min="3000" required placeholder="e.g. 45000">
               <span class="field-error" id="itemCostError"></span>
             </label>
             
             <label>
               <span>Labour fee (UGX) <span style="color:#f87171;">*</span></span>
-              <input name="itemCost"  type="number" id="itemCost" min="20000" required placeholder="e.g. 20000">
+              <input name="labourFee"  type="number" id="labourFee" min="20000" required placeholder="e.g. 20000">
               <span class="field-error" id="itemCostError"></span>
             </label>
             
             <label>
               <span>Assigned Technician <span style="color:#f87171;">*</span></span>
-              <input name="assignedtech" type="text"   required placeholder="peter">
+              <input name="assignedTechnician" type="text"   required placeholder="peter">
               <span class="field-error" ></span>
             </label>
            
             <label>
               <span>Status</span>
-              <select name="Status" id="Status">
-                <option>pending</option>
-                <option>active</option>
-                <option>completed</option>
+              <select name="status" id="status">
+               <option value="pending">pending</option>
+                <option value="active">active</option>
+                <option value="completed">completed</option>
               </select>
             </label>
 
