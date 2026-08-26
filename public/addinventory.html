@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Add a new part to the Oyera Auto Service Bay Ltd (OAS Bay) inventory.">
-  <title>Add Inventory | Oyera Auto Service Bay Ltd (OAS Bay)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <meta name="description" content="Staff dashboard for Oyera Auto Service Bay Ltd (OAS Bay) — manage inventory and bookings.">
+  <title>| Oyera Auto Service Bay Ltd (OAS Bay)</title>
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="header" id="header">
-    <nav class="nav container">
+    <nav class="nav container" style="background-color: rgb(40, 50, 39);">
       <a href="index.html" class="logo">
         <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
         <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" id="navToggle" aria-label="Toggle menu" aria-expanded="false" style="background-color: blue;">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="inventory.html">Inventory</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="addnewcustomer.html">Add New Customer</a></li>
+        <li><a href="addinventory.html">Add Inventory</a></li>
         <li id="authNavSlot"></li>
       </ul>
     </nav>
@@ -31,7 +30,7 @@
   <main>
     <section class="dash-hero">
       <div class="container">
-        <span class="section-tag">Staff Dashboard</span>
+        <span class="section-tag">Staff Only Allowed </span>
         <h1>Add New Inventory</h1>
         <p>Add a part or supply to the OAS Bay inventory.</p>
       </div>
@@ -41,10 +40,7 @@
       <div class="container">
 
         <div class="booking-form-card">
-          <p class="dash-note" style="margin-top:0; margin-bottom:1.25rem;">Fields marked <span style="color:#f87171;">*</span> are required.</p>
-          <div class="auth-error" id="addItemError"></div>
-          <div class="auth-error" id="addItemSuccess" style="background: rgba(74, 222, 128, 0.1); border-color: rgba(74, 222, 128, 0.3); color: #4ade80;"></div>
-
+        
           <form id="addItemForm" action="/addinventory" method="post">
             <label>
               <span>Item Name <span style="color:#f87171;">*</span></span>

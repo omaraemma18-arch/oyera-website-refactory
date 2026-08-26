@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Service Bay Overview — Oyera Auto Service Bay Ltd</title>
-<link rel="stylesheet" href="css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Staff dashboard for Oyera Auto Service Bay Ltd (OAS Bay) — manage inventory and bookings.">
+  <title>| Oyera Auto Service Bay Ltd (OAS Bay)</title>
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <header class="header" id="header">
+    <nav class="nav container" style="background-color: rgb(40, 50, 39);">
+      <a href="index.html" class="logo">
+        <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
+        <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
+      </a>
+      <button class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark" id="navToggle" aria-label="Toggle menu" aria-expanded="false" style="background-color: blue;">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="addnewcustomer.html">Add New Customer</a></li>
+        <li><a href="addinventory.html">Add Inventory</a></li>
+        <li id="authNavSlot"></li>
+      </ul>
+    </nav>
+  </header>
+<body>
+  
   <div class="wrap">
 
     <div class="topbar">
-      <div><span class="dot"></span>You are welcome, <b>{{ props.user.email}}</b></div>
+      <div><span class="dot"></span>You are welcome, <b></b></div>
       <div class="topbar-right"><span class="clock" id="clock">—</span></div>
     </div>
-
-    <div class="header">
-      <div>
-        <h1>Service Bay Overview</h1>
-        <p class="sub"><b>Oyera Auto Service Bay Ltd</b> — Daily Operations</p>
-      </div>
-      <button class="btn-primary" id="newVehicleBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        New Vehicle Entry
-      </button>
-    </div>
-
     <div class="stats">
       <div class="stat blue">
         <div class="label">Today's Revenue</div>
@@ -57,7 +66,7 @@
         <thead>
           <tr>
             <th>Reg No.</th>
-            <th>Category</th>
+            <th>Vehicel Category</th>
             <th>Services Required</th>
             <th>Assigned Tech(s)</th>
             <th>Parts &amp; Fluids Purchased</th>

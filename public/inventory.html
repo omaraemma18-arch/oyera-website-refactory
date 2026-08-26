@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Staff dashboard for Oyera Auto Service Bay Ltd (OAS Bay) — manage inventory and bookings.">
-  <title>Staff Dashboard | Oyera Auto Service Bay Ltd (OAS Bay)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <title>| Oyera Auto Service Bay Ltd (OAS Bay)</title>
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="header" id="header">
-    <nav class="nav container">
+    <nav class="nav container" style="background-color: rgb(46, 46, 45);">
       <a href="index.html" class="logo">
         <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
         <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
@@ -21,7 +19,9 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="addnewcustomer.html">Add New Customer</a></li>
+        <li><a href="addinventory.html">Add Inventory</a></li>
         <li id="authNavSlot"></li>
       </ul>
     </nav>
@@ -30,7 +30,7 @@
   <main>
     <section class="dash-hero">
       <div class="container">
-        <span class="section-tag">Staff Dashboard</span>
+        <span class="section-tag">Staff Only Allowed</span>
         <h1 id="dashGreeting">Welcome</h1>
         <p>Manage parts &amp; supplies, and keep track of customer bookings.</p>
       </div>
@@ -39,13 +39,7 @@
     <section class="dash-main">
       <div class="container">
 
-        <div class="dash-tabs">
-          <button class="dash-tab active" data-tab="inventoryPanel">Inventory</button>
-          <button class="dash-tab" data-tab="bookingsPanel">Bookings</button>
-          <button class="dash-tab" data-tab="receiptsPanel" id="receiptsTabBtn" style="display:none;">Receipts</button>
-        </div>
-
-        <!-- INVENTORY PANEL -->
+      
         <div class="dash-panel active" id="inventoryPanel">
 
           <div class="inv-stats">
@@ -67,17 +61,9 @@
             </div>
           </div>
 
-          <p class="dash-note" id="readOnlyNote" style="display:none;">You're viewing inventory in <strong>read-only</strong> mode. Add items to your cart to see pricing — a senior technician or admin can update stock directly.</p>
-
           <div class="inv-toolbar">
             <input type="text" id="invSearch" placeholder="Search by item or supplier...">
-            <select id="invCategoryFilter">
-              <option value="All">All Categories</option>
-            </select>
-            <button class="btn btn-primary" id="invAddBtn" style="display:none;">+ Add Item</button>
-            <a href="additems.html" class="btn btn-outline" id="invAddFullPageLink" style="display:none;">Add Item (Full Page)</a>
-            <button class="btn btn-outline" id="cartBtn" style="position:relative;">
-              🛒 Cart
+      
               <span id="cartCount" style="display:none; position:absolute; top:-8px; right:-8px; background:var(--color-accent); color:var(--color-bg); font-size:0.7rem; font-weight:700; min-width:18px; height:18px; border-radius:9px; align-items:center; justify-content:center; padding:0 4px;">0</span>
             </button>
           </div>
@@ -100,212 +86,4 @@
             </table>
           </div>
           <div class="inv-empty" id="invEmpty" style="display:none;">No items match your search.</div>
-
-          <p class="dash-note">Inventory changes are saved in this browser (localStorage) so they survive a refresh, but they only exist on this device — there's no shared server yet.</p>
         </div>
-
-        <!-- BOOKINGS PANEL -->
-        <div class="dash-panel" id="bookingsPanel">
-
-          <div class="inv-toolbar">
-            <input type="text" id="bookingSearch" placeholder="Search by customer name or vehicle...">
-            <select id="bookingStatusFilter">
-              <option value="All">All Statuses</option>
-              <option value="Pending">Pending</option>
-              <option value="Confirmed">Confirmed</option>
-              <option value="Completed">Completed</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
-          </div>
-
-          <div class="bookings-table-wrap">
-            <table class="bookings-table">
-              <thead>
-                <tr>
-                  <th>Customer</th>
-                  <th>Phone</th>
-                  <th>Vehicle</th>
-                  <th>Service</th>
-                  <th>Notes</th>
-                  <th>Requested</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="bookingsTableBody"></tbody>
-            </table>
-          </div>
-          <div class="dash-empty" id="bookingsEmpty" style="display:none;">No bookings yet.</div>
-
-          <p class="dash-note">Bookings submitted by customers from their dashboard show up here. Update the status dropdown to move a booking along.</p>
-        </div>
-
-        <!-- RECEIPTS PANEL (admin only) -->
-        <div class="dash-panel" id="receiptsPanel">
-
-          <div class="inv-toolbar">
-            <input type="text" id="receiptSearch" placeholder="Search by technician name...">
-            <select id="receiptStatusFilter">
-              <option value="All">All Statuses</option>
-              <option value="Pending">Pending</option>
-              <option value="Paid">Paid</option>
-            </select>
-          </div>
-
-          <div class="bookings-table-wrap">
-            <table class="bookings-table">
-              <thead>
-                <tr>
-                  <th>Technician</th>
-                  <th>Items</th>
-                  <th>Total</th>
-                  <th>Requested</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="receiptsTableBody"></tbody>
-            </table>
-          </div>
-          <div class="dash-empty" id="receiptsEmpty" style="display:none;">No cart submissions yet.</div>
-
-          <p class="dash-note">When a technician submits their cart for payment, it shows up here. Issuing a receipt marks it as paid.</p>
-        </div>
-
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo">
-          <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
-          <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
-        </a>
-        <p>Oyera Auto Service Bay Ltd (OAS Bay) — service and parts for heavy, small, and commercial vehicles.</p>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <p>&copy; 2026 Oyera Auto Service Bay Ltd (OAS Bay). All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Add / Edit Item Modal -->
-  <div class="inv-modal-overlay" id="invModalOverlay">
-    <div class="inv-modal">
-      <h3 id="invModalTitle">Add New Item</h3>
-      <form id="invForm">
-        <input type="hidden" id="invItemId">
-        <label>
-          <span>Item Name</span>
-          <input type="text" id="invName" required placeholder="e.g. Engine Oil 5W-30 (5L)">
-        </label>
-        <label>
-          <span>Category</span>
-          <select id="invCategory">
-            <option>Engine Oil</option>
-            <option>Gearbox Oil</option>
-            <option>Brake Fluid</option>
-            <option>Filters</option>
-            <option>Brake Pads</option>
-            <option>Tyres</option>
-            <option>Other</option>
-          </select>
-        </label>
-        <label>
-          <span>Supplier</span>
-          <input type="text" id="invSupplier" placeholder="e.g. Total Uganda">
-        </label>
-        <label>
-          <span>Unit Cost (UGX)</span>
-          <input type="number" id="invCost" min="0" required>
-        </label>
-        <label>
-          <span>Quantity in Stock</span>
-          <input type="number" id="invQty" min="0" required>
-        </label>
-        <div class="inv-modal-actions">
-          <button type="button" class="btn btn-outline" id="invCancelBtn">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Item</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Cart Modal -->
-  <div class="inv-modal-overlay" id="cartModalOverlay">
-    <div class="inv-modal cart-modal">
-      <h3>Cart</h3>
-      <div class="cart-table-wrap">
-        <table class="cart-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Unit Cost</th>
-              <th>Qty</th>
-              <th>Line Total</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="cartBody"></tbody>
-        </table>
-      </div>
-      <div class="inv-empty" id="cartEmpty" style="display:none;">Your cart is empty.</div>
-
-      <div class="cart-total-row">
-        <span>Grand Total</span>
-        <span id="cartGrandTotal">UGX 0</span>
-      </div>
-
-      <div class="inv-modal-actions">
-        <button type="button" class="btn btn-outline" id="cartClearBtn">Clear Cart</button>
-        <button type="button" class="btn btn-primary" id="cartSubmitBtn" style="display:none;">Submit for Payment</button>
-        <button type="button" class="btn btn-primary" id="cartCloseBtn">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Receipt Modal (printable) -->
-  <div class="inv-modal-overlay" id="receiptModalOverlay">
-    <div class="inv-modal receipt-modal" id="receiptPrintArea">
-      <div class="receipt-header">
-        <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="receipt-logo">
-        <div>
-          <h3 style="margin-bottom:0.15rem;">Oyera Auto Service Bay Ltd</h3>
-          <p style="margin:0; color:var(--color-text-muted); font-size:0.85rem;">Parts Payment Receipt</p>
-        </div>
-      </div>
-
-      <div class="receipt-meta">
-        <div><span>Receipt No.</span><strong id="receiptNo">—</strong></div>
-        <div><span>Technician</span><strong id="receiptTech">—</strong></div>
-        <div><span>Date Paid</span><strong id="receiptDate">—</strong></div>
-      </div>
-
-      <table class="cart-table receipt-items-table">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Unit Cost</th>
-            <th>Line Total</th>
-          </tr>
-        </thead>
-        <tbody id="receiptItemsBody"></tbody>
-      </table>
-
-      <div class="cart-total-row">
-        <span>Total Paid</span>
-        <span id="receiptTotal">UGX 0</span>
-      </div>
-
-      <div class="inv-modal-actions no-print">
-        <button type="button" class="btn btn-outline" id="receiptCloseBtn">Close</button>
-        <button type="button" class="btn btn-primary" id="receiptPrintBtn">Print Receipt</button>
-      </div>
-    </div>
-  </div>
-
-  </script>
-</body>
-</html>
