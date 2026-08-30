@@ -1,11 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const Inventory = require('../models/addInventory');
+import express from 'express';
+import Inventory from '../models/addInventory.mjs';
 
+const router = express.Router();
 
 router.post('/addinventory', async (req, res) => {
-
-  console.log('incoming data',req.body)
+  console.log('incoming data', req.body);
   try {
     const newItem = new Inventory(req.body);
     await newItem.save();
@@ -14,8 +13,7 @@ router.post('/addinventory', async (req, res) => {
     console.error('Error saving inventory:', err);
   }
 
-  
   return res.redirect('/dashboard');
 });
 
-module.exports = router;
+export default router;

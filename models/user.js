@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs')
-
-
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   role: { type: String, required: true },
@@ -12,17 +10,14 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-//hashing passwad
-userSchema.pre('save',async function(){
-    if (!this.isModified('password')) return 
-        const salt = await bcrypt.genSalt(10)
-        this.password = await bcrypt.hash(this.password, salt)
-    
-})
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-userSchema.methods.matchPassword = async function (enteredPassword){
-    return await bcrypt.compare(enteredPassword, this.password)
-}
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
-
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

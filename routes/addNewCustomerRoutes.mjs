@@ -1,41 +1,40 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import Customer from '../models/addNewCustomer.mjs';
 
-const Customer = require('../models/addNewCustomer');
+const router = express.Router();
 
 router.post('/addnewcustomer', async (req, res) => {
   try {
     const {
       carName,
-      vehicelSizeCategory,
+      vehicleSizeCategory,
       serviceCategory,
       numberPlate,
       serviceCost,
-      labourFee,
+      labourFee = 20000,
       assignedTechnician,
       status
     } = req.body;
 
     const newCustomer = new Customer({
       carName,
-      vehicelSizeCategory,
-      serviceCategory: (serviceCategory), 
+      vehicleSizeCategory,
+      serviceCategory,
       numberPlate,
       serviceCost: serviceCost ? Number(serviceCost) : undefined,
-      labourFee: labourFee ? Number(labourFee) : 20000,
+      labourFee: Number(labourFee),
       assignedTechnician,
       status
     });
 
-    // saving to MongoDB
     await newCustomer.save();
-console.log('Successfully saved to MongoDB!');
-    
-    res.redirect('/dashboard.html');
+    console.log('Successfully saved to MongoDB!');
+
+    return res.redirect('/dashboard.html');
   } catch (error) {
     console.error('Error adding customer:', error);
-    res.send('Server Error: Unable to save customer data.');
+    return res.status(500).send('Server Error: Unable to save customer data.');
   }
 });
 
-module.exports = router;
+export default router;

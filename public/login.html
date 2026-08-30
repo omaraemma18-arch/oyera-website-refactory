@@ -3,56 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to Oyera Auto Service Bay Ltd (OAS Bay) portal.">
   <title>Login | Oyera Auto Service Bay Ltd (OAS Bay)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-  <header class="header" id="header">
-    <nav class="nav container">
-      <a href="index.html" class="logo">
-        <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" class="logo-icon-img">
-        <span class="logo-text">Oyera <strong>Auto Service Bay</strong></span>
-      </a>
-     
+<body class="bg-light text-dark d-flex flex-column min-vh-100 position-relative" style="background: linear-gradient(rgba(00,00,00,0.85), rgba(00,00,00,0.05)), url('images/garage-storefront.jpg') center/cover no-repeat fixed;">
+
+  <header class="header position-relative z-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-light-subtle shadow-sm">
+      <div class="container">
+        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2">
+          <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" width="30" height="30" class="d-inline-block align-text-top rounded">
+          <span class="fs-6 fw-bold text-dark">Oyera <strong class="text-warning">Auto Service Bay</strong></span>
+        </a>
+      </div>
+    </nav>
   </header>
 
-  <main>
-    <div class="auth-page">
-      <div class="auth-card">
-        <span class="section-tag">Welcome Back</span>
-        <h1>Log In</h1>
-        <p class="auth-sub">Technicians, admins, and customers all sign in here.</p>
+  <main class="flex-grow-1 d-flex align-items-center py-5 position-relative z-3">
+    <div class="container" style="max-width: 450px;">
+      <div class="card bg-white text-dark border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          
+          <div class="text-center mb-4">
+            <span class="badge bg-warning text-dark text-uppercase px-2 py-1 mb-2 fw-bold">Welcome Back</span>
+            <h1 class="h3 text-dark fw-bold mb-1">Log In</h1>
+            <p class="text-muted small mb-0">Technicians, admins, and customers all sign in here.</p>
+          </div>
 
-        <div class="auth-error" id="loginError"></div>
+          <div class="alert alert-danger d-none small py-2" role="alert" id="loginError"></div>
 
-        <form id="loginForm" action="/login" method="post">
-          <label>
-            <span>Role</span>
-            <select name="loginRole" id="loginRole" required>
-              <option value="customer">Customer</option>
-              <option value="technician">Technician</option>
-              <option value="senior_technician">Senior Technician</option>
-              <option value="admin">Admin</option>
-            </select>
-          </label>
-          <label>
-            <span>Email</span>
-            <input name="loginEmail"  type="email" id="loginEmail" required placeholder="you@email.com">
-          </label>
-          <label>
-            <span>Password</span>
-            <input name="loginPassword" type="password" id="loginPassword" required placeholder="••••••••">
-          </label>
-          <button type="submit" class="btn btn-primary btn-full">Log In</button>
-        </form>
+          <form id="loginForm" action="/login" method="post" class="needs-validation" novalidate>
+            
+            <div class="mb-3">
+              <label for="loginRole" class="form-label small fw-bold text-dark">Role</label>
+              <select name="loginRole" id="loginRole" class="form-select form-select-sm bg-light border-secondary-subtle" required>
+                <option value="customer">Customer</option>
+                <option value="technician">Technician</option>
+                <option value="senior_technician">Senior Technician</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
 
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label small fw-bold text-dark">
+                Email Address <span class="text-danger">*</span>
+              </label>
+              <input name="loginEmail" type="email" class="form-control form-control-sm bg-light border-secondary-subtle" id="loginEmail" required placeholder="you@email.com">
+              <div class="invalid-feedback small">Please enter a valid email.</div>
+            </div>
 
-        <p class="auth-switch">Don't have an account? <a href="register.html">Sign up</a></p>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label small fw-bold text-dark">
+                Password <span class="text-danger">*</span>
+              </label>
+              <input name="loginPassword" type="password" class="form-control form-control-sm bg-light border-secondary-subtle" id="loginPassword" required placeholder="••••••••">
+              <div class="invalid-feedback small">Please enter your password.</div>
+            </div>
+
+            <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold mt-2 text-dark" id="loginSubmitBtn">Log In</button>
+
+          </form>
+
+          <p class="text-muted small mt-4 text-center mb-0">
+            Don't have an account? <a href="register.html" class="text-dark text-decoration-underline fw-semibold">Sign up</a>
+          </p>
+
+        </div>
       </div>
     </div>
   </main>
+
+  <footer class="footer bg-white border-top border-light-subtle py-3 mt-auto text-center position-relative z-3 shadow-sm">
+    <div class="container">
+      <p class="text-muted small mb-0">&copy; 2026 <span class="text-dark fw-semibold">Oyera Auto Service Bay Ltd (OAS Bay)</span>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

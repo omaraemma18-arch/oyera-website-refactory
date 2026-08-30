@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
 
 const inventorySchema = new mongoose.Schema({
   itemName: { type: String, required: true },
@@ -10,6 +9,4 @@ const inventorySchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-
-
-module.exports = mongoose.model('Inventory', inventorySchema);
+export default mongoose.model('Inventory', inventorySchema);

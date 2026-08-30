@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import User from '../models/user.js';
+
 const router = express.Router();
-const User = require('../models/user');
 
 // Login POST route
 router.post('/login', async (req, res) => {
@@ -21,7 +22,7 @@ router.post('/login', async (req, res) => {
 
   } catch (err) {
     console.error('Login error:', err);
-    return res.send('Server error during login. <a href="/login">Try again</a>');
+    return res.status(500).send('Server error during login. <a href="/login">Try again</a>');
   }
 });
 
@@ -62,8 +63,8 @@ router.post('/signup', async (req, res) => {
 
   } catch (err) {
     console.error('Signup error:', err);
-    return res.send('Server error during registration. <a href="/signup">Try again</a>');
+    return res.status(500).send('Server error during registration. <a href="/signup">Try again</a>');
   }
 });
 
-module.exports = router;
+export default router;

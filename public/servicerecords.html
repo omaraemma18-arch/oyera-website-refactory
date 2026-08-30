@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter the Service provided</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="bg-light text-dark d-flex flex-column min-vh-100 position-relative" style="background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.85)), url('images/garage-storefront.jpg') center/cover no-repeat fixed;">
+
+  <main class="container py-5 position-relative z-3 my-auto">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card p-4 p-md-5 shadow-lg bg-white border-0 rounded-4">
+          <h2 class="mb-4 fw-bold text-dark">Enter the Service provided</h2>
+
+          <div class="alert alert-info mb-4 border-0 shadow-sm">
+            <strong>Pricing Guide: </strong>Engine Oil (UGX 79K-200K), Brake Fluid (UGX 13K-20K), Oil Filter (UGX 15K-20K). Alignment (UGX 30K), Balance (UGX 20K). Standard Labor (UGX 20K).
+          </div>
+
+          <form action="/servicerecords" method="POST">
+            <!-- Customer & Car Plate -->
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label class="form-label small fw-bold text-dark">Customer Name</label>
+                <input class="form-control form-control-sm bg-light border-secondary-subtle" type="text" name="customerName" required placeholder="e.g. John Smith">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">Car Number Plate</label>
+                <input class="form-control form-control-sm bg-light border-secondary-subtle" type="text" name="carPlate" required placeholder="e.g. UBB 123K">
+              </div>
+            </div>
+
+            <!-- Services Performed -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-dark">Services Performed (Hold Ctrl/Cmd to select multiple)</label>
+              <select class="form-select form-select-sm bg-light border-secondary-subtle" name="servicesDone" multiple required size="5">
+                <option value="Engine Oil and Filters">Engine Oil and Filters</option>
+                <option value="Gear Box Oil and Filters">Gear Box Oil and Filters</option>
+                <option value="Brake Fluids">Brake Fluids</option>
+                <option value="Brake Pads Change">Brake Pads Change</option>
+                <option value="Greasing">Greasing</option>
+                <option value="Other Minor Repairs">Other Minor Repairs</option>
+                <option value="Wheel Alignment">Wheel Alignment</option>
+                <option value="Wheel Balance">Wheel Balance</option>
+              </select>
+            </div>
+
+            <!-- Parts & Oils Multi-Select & Dynamic Container -->
+            <div class="mb-4 p-3 border rounded-3 bg-light shadow-sm">
+              <label class="form-label small fw-bold text-dark">Parts and Oils Used (Hold Ctrl/Cmd to select multiple)</label>
+              <select class="form-select form-select-sm bg-white border-secondary-subtle mb-3" name="partsAndOilsUsed" multiple size="5">
+                <option value="Engine Oil 5W-30">Engine Oil 5W-30</option>
+                <option value="Engine Oil 10W-40">Engine Oil 10W-40</option>
+                <option value="Gear Oil">Gear Oil</option>
+                <option value="Brake Fluid">Brake Fluid</option>
+                <option value="Oil Filter">Oil Filter</option>
+                <option value="Air Filter">Air Filter</option>
+                <option value="Brake Pads">Brake Pads</option>
+                <option value="Spark Plugs">Spark Plugs</option>
+              </select>
+
+              <!-- RESTORED: Dynamic rows will append here -->
+              <div id="parts-container" class="vstack gap-2"></div>
+              
+              <button class="btn btn-outline-dark btn-sm mt-2 fw-semibold" type="button" onclick="addPartRow()">
+                <i class="bi bi-plus-circle me-1"></i>Add Specific Part Row
+              </button>
+            </div>
+
+            <!-- Technicians & Total Cost -->
+            <div class="row mb-4">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label class="form-label small fw-bold text-dark">Assigned Technician Names (Hold Ctrl/Cmd to select multiple)</label>
+                <select class="form-select form-select-sm bg-light border-secondary-subtle" name="assignedTechnicians" multiple required size="5">
+                  <option value="John Doe">John Doe</option>
+                  <option value="Alex Smith">Alex Smith</option>
+                  <option value="David Peter">David Peter</option>
+                  <option value="Michael James">Michael James</option>
+                  <option value="Robert Mugisha">Robert Mugisha</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-bold text-dark">Total Cost (UGX)</label>
+                <input class="form-control form-control-sm bg-light border-secondary-subtle" type="number" name="totalCost" required placeholder="Parts + Fluids + Services + Labor">
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button class="btn btn-warning btn-lg fw-bold text-dark shadow-sm" type="submit">Save Record &amp; Deduct Stock</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Template for Dynamic Rows -->
+  <template id="part-row-template">
+    <div class="row g-2 align-items-center part-row">
+      <div class="col-md-7">
+        <select class="form-select form-select-sm bg-white border-secondary-subtle" name="partNames" required>
+          <option value="" disabled selected>Select Item...</option>
+          <option value="Engine Oil 5W-30">Engine Oil 5W-30</option>
+          <option value="Engine Oil 10W-40">Engine Oil 10W-40</option>
+          <option value="Gear Oil">Gear Oil</option>
+          <option value="Brake Fluid">Brake Fluid</option>
+          <option value="Oil Filter">Oil Filter</option>
+          <option value="Air Filter">Air Filter</option>
+          <option value="Brake Pads">Brake Pads</option>
+          <option value="Spark Plugs">Spark Plugs</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control form-control-sm bg-white border-secondary-subtle" type="number" name="partQuantities" min="1" value="1" placeholder="Qty" required>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-danger btn-sm w-100" type="button" onclick="this.closest('.part-row').remove()">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function addPartRow() {
+      const container = document.getElementById('parts-container');
+      const template = document.getElementById('part-row-template');
+      if (container && template) {
+        container.appendChild(template.content.cloneNode(true));
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', addPartRow);
+  </script>
+
+</body>
+</html>
