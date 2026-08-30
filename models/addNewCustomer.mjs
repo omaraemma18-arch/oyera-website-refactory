@@ -1,15 +1,55 @@
 import mongoose from 'mongoose';
 
-const addNewCustomerSchema = new mongoose.Schema({
-  carName: { type: String, required: true },
-  vehicleSizeCategory: { type: String, required: true },
-  serviceCategory: { type: String, required: true },
-  numberPlate: { type: String, required: true },
-  serviceCost: { type: Number },
-  labourFee: { type: Number, default: 20000 },
-  assignedTechnician: { type: String },
-  status: { type: String, default: 'pending' },
-  createdAt: { type: Date, default: Date.now }
-});
+const addNewCustomerSchema = new mongoose.Schema(
+  {
+    carName: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    numberPlate: {
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true,
+      default: 'UNKNOWN'
+    },
+    serviceCategory: {
+      type: String,
+      required: true,
+      default: 'General Service'
+    },
+    assignedTechnician: {
+      type: String,
+      required: true,
+      default: 'Unassigned'
+    },
+    vehicleSizeCategory: {
+      type: String,
+      enum: ['small', 'commercial', 'heavy'],
+      default: 'small'
+    },
+    serviceCost: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0
+    },
+    labourFee: {
+      type: Number,
+      required: true,
+      min: 0,
+      default: 0
+    },
+    status: {
+      type: String,
+      enum: ['active', 'completed', 'pending'],
+      default: 'active'
+    }
+  },
+  {
+    timestamps: true
+  }
+);
 
-export default mongoose.model('addNewCustomer', addNewCustomerSchema);
+export default mongoose.model('AddNewCustomer', addNewCustomerSchema);

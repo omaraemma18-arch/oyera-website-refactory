@@ -1,42 +1,59 @@
-
 import mongoose from 'mongoose';
 
-const serviceRecordsSchema = new mongoose.Schema({
-  customerName: {
-    type: String,
-    required: true,
-    trim: true
+const serviceRecordSchema = new mongoose.Schema(
+  {
+    customerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'AddNewCustomer',
+      required: true
+    },
+    carName: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    numberPlate: {
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true
+    },
+    serviceCategory: {
+      type: String,
+      required: true
+    },
+    assignedTechnician: {
+      type: String,
+      required: true
+    },
+    partsUsed: [
+      {
+        item: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Inventory'
+        },
+        quantity: {
+          type: Number,
+          default: 1
+        }
+      }
+    ],
+    notes: {
+      type: String,
+      default: 'Routine Maintenance Completed'
+    },
+    totalCost: {
+      type: Number,
+      required: true
+    },
+    completedDate: {
+      type: Date,
+      default: Date.now
+    }
   },
-  carPlate: {
-    type: String,
-    required: true,
-    trim: true,
-    uppercase: true
-  },
-  servicesDone: [{
-    type: String,
-    required: true
-  }],
-  partsAndOilsUsed: [{
-    type: String
-  }],
-  dynamicParts: [{
-    partName: { type: String, required: true },
-    quantity: { type: Number, required: true, min: 1, default: 1 }
-  }],
-  assignedTechnicians: [{
-    type: String,
-    required: true
-  }],
-  totalCost: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  {
+    timestamps: true
   }
-});
+);
 
-export default mongoose.model('serviceRecords', serviceRecordsSchema);
+export default mongoose.model('ServiceRecord', serviceRecordSchema);

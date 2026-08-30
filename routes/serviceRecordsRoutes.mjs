@@ -1,65 +1,91 @@
-// routes/serviceRecordsRoutes.mjs
 import express from 'express';
-import serviceRecords from '../models/serviceRecords.mjs';
+import ServiceRecord from '../models/serviceRecords.mjs';
+import AddNewCustomer from '../models/addNewCustomer.mjs';
+import Inventory from '../models/addInventory.mjs';
 
 const router = express.Router();
 
-router.post('/servicerecords', async (req, res) => {
+router.post('/api/servicerecords/complete', async (req, res) => {
   try {
-    const {
-      customerName,
-      carPlate,
-      servicesDone,
-      partsAndOilsUsed,
-      partNames,
-      partQuantities,
-      assignedTechnicians,
-      totalCost
-    } = req.body;
+    const { customerId, carName, numberPlate, serviceCategory, assignedTechnician, partsUsed, notes, totalCost } = req.body;
 
-    const formattedServices = Array.isArray(servicesDone)
-      ? servicesDone
-      : servicesDone ? [servicesDone] : [];
-
-    const formattedPartsAndOils = Array.isArray(partsAndOilsUsed)
-      ? partsAndOilsUsed
-      : partsAndOilsUsed ? [partsAndOilsUsed] : [];
-
-    const formattedTechnicians = Array.isArray(assignedTechnicians)
-      ? assignedTechnicians
-      : assignedTechnicians ? [assignedTechnicians] : [];
-
-    const dynamicParts = [];
-    if (partNames) {
-      const names = Array.isArray(partNames) ? partNames : [partNames];
-      const quantities = Array.isArray(partQuantities) ? partQuantities : [partQuantities];
-
-      names.forEach((name, index) => {
-        if (name) {
-          dynamicParts.push({
-            partName: name,
-            quantity: Number(quantities[index]) || 1
-          });
-        }
-      });
+    if (!customerId) {
+      return res.status(400).json({ error: 'Customer ID is required.' });
     }
 
-    const newRecord = new serviceRecords({
-      customerName,
-      carPlate,
-      servicesDone: formattedServices,
-      partsAndOilsUsed: formattedPartsAndOils,
-      dynamicParts,
-      assignedTechnicians: formattedTechnicians,
+    let formattedParts = [];
+
+    if (Array.isArray(partsUsed)) {
+      formattedParts = partsUsed.map(part => {
+        if (typeof part === 'object' && part.item) {
+          return { item: part.item, quantity: Number(part.quantity) || 1 };
+        }
+        return { item: part, quantity: 1 };
+      }).filter(p => p.item && p.item !== 'none');
+    } else if (typeof partsUsed === 'string' && partsUsed !== 'none' && partsUsed.trim() !== '') {
+      formattedParts = [{ item: partsUsed, quantity: 1 }];
+    }
+
+    const record = new ServiceRecord({
+      customerId,
+      carName,
+      numberPlate,
+      serviceCategory,
+      assignedTechnician,
+      partsUsed: formattedParts,
+      notes,
       totalCost: Number(totalCost)
     });
 
-    await newRecord.save();
+    await record.save();
 
-    return res.redirect('/dashboard');
-  } catch (err) {
-    console.error('Error saving record:', err);
-    return res.status(500).send('Server error: Unable to save service record.');
+    for (const part of formattedParts) {
+      if (part.item) {
+        await Inventory.findByIdAndUpdate(part.item, {
+          $inc: { quantityInStock: -Math.abs(part.quantity) }
+        });
+      }
+    }
+
+    await AddNewCustomer.findByIdAndDelete(customerId);
+
+    return res.status(200).json({ success: true, message: 'Service completed and inventory updated.' });
+  } catch (error) {
+    console.error('Error completing service record:', error);
+    return res.status(500).json({ error: 'Failed to complete service record: ' + error.message });
+  }
+});
+
+router.get('/api/servicerecords/history', async (req, res) => {
+  try {
+    const history = await ServiceRecord.find().sort({ completedDate: -1 });
+
+    const populatedHistory = await Promise.all(
+      history.map(async (doc) => {
+        const record = doc.toObject();
+        if (Array.isArray(record.partsUsed)) {
+          record.partsUsed = await Promise.all(
+            record.partsUsed.map(async (p) => {
+              if (p && p.item && typeof p.item === 'string' && p.item.length === 24) {
+                try {
+                  const invItem = await Inventory.findById(p.item).select('itemName partNumber');
+                  return { ...p, item: invItem || p.item };
+                } catch (e) {
+                  return p;
+                }
+              }
+              return p;
+            })
+          );
+        }
+        return record;
+      })
+    );
+
+    return res.status(200).json(populatedHistory);
+  } catch (error) {
+    console.error('Error fetching history:', error);
+    return res.status(500).json({ error: 'Failed to fetch service history: ' + error.message });
   }
 });
 
