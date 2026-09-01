@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Customer — Oyera Auto Service Bay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-shell">
+  <div id="app-shell"></div>
+  <div class="app-content">
+    <main id="page-content">
+
+      <a href="/dashboard" class="text-decoration-none text-muted small d-inline-flex align-items-center gap-1 mb-3">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </a>
+
+      <div class="form-alert error" id="pageAlert"></div>
+
+      <div id="customerCard" class="row g-3 d-none">
+        <div class="col-12 col-lg-8">
+          <div class="panel p-4">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h2 class="mb-1" style="font-size:1.2rem;" id="custName"></h2>
+                <div class="text-muted small" id="custPhone"></div>
+              </div>
+              <span class="status-badge" id="custStatus"></span>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <div class="text-muted small">Vehicle Plate</div>
+                <div class="fw-semibold" id="custPlate"></div>
+              </div>
+              <div class="col-6">
+                <div class="text-muted small">Vehicle Type</div>
+                <div class="fw-semibold" id="custType"></div>
+              </div>
+              <div class="col-6">
+                <div class="text-muted small">Assigned Technician</div>
+                <div class="fw-semibold" id="custTech"></div>
+              </div>
+              <div class="col-6">
+                <div class="text-muted small">Logged</div>
+                <div class="fw-semibold" id="custCreated"></div>
+              </div>
+            </div>
+
+            <div class="text-muted small">Issue Description</div>
+            <p id="custIssue" class="mb-0"></p>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <div class="panel p-4">
+            <h2 class="mb-3" style="font-size:1rem;">Actions</h2>
+            <div id="actionArea"></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/customer.js"></script>
+</body>
+</html>

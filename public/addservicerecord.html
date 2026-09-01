@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Add Service Record — Oyera Auto Service Bay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-shell">
+  <div id="app-shell"></div>
+  <div class="app-content">
+    <main id="page-content">
+
+      <div id="custSummary" class="panel p-3 mb-3 d-none">
+        <div class="d-flex justify-content-between flex-wrap gap-2">
+          <div>
+            <div class="fw-semibold" id="sumName"></div>
+            <div class="text-muted small" id="sumVehicle"></div>
+          </div>
+          <div class="text-muted small" id="sumIssue" style="max-width:400px;"></div>
+        </div>
+      </div>
+
+      <div class="form-alert error" id="formAlert"></div>
+
+      <div class="panel p-4">
+        <h2 class="mb-3" style="font-size:1.1rem;">Log Completed Work</h2>
+
+        <form id="recordForm" novalidate>
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">Work Done</label>
+            <textarea class="form-control" id="workDone" rows="3" required placeholder="Describe the work carried out…"></textarea>
+            <div class="invalid-feedback">Please describe the work done.</div>
+          </div>
+
+          <label class="form-label small fw-semibold">Materials Used</label>
+          <div id="materialRows"></div>
+          <button type="button" class="btn btn-sm btn-light border mb-3" id="addMaterialBtn">
+            <i class="bi bi-plus-lg"></i> Add Material
+          </button>
+
+          <div class="row g-3 align-items-end mt-2">
+            <div class="col-md-4">
+              <label class="form-label small fw-semibold">Labour Fee (UGX)</label>
+              <input type="number" class="form-control" id="labourFee" min="0" step="1" required>
+              <div class="invalid-feedback">Please enter a labour fee.</div>
+            </div>
+          </div>
+
+          <div class="panel p-3 mt-4" style="background:var(--oas-bg);">
+            <div class="d-flex justify-content-between small text-muted">
+              <span>Materials Subtotal</span>
+              <span id="materialsSubtotal">UGX 0</span>
+            </div>
+            <div class="d-flex justify-content-between small text-muted mt-1">
+              <span>Labour Fee</span>
+              <span id="labourSubtotal">UGX 0</span>
+            </div>
+            <hr class="my-2">
+            <div class="d-flex justify-content-between fw-bold">
+              <span>Total</span>
+              <span id="grandTotal">UGX 0</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-oas px-4 mt-4" id="submitBtn">Complete &amp; Save</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<template id="materialRowTemplate">
+  <div class="material-row">
+    <select class="form-select form-select-sm item-select">
+      <option value="">Choose item…</option>
+    </select>
+    <input type="number" class="form-control form-control-sm qty-input" min="1" step="1" style="max-width:90px;" placeholder="Qty">
+    <span class="small text-muted line-cost" style="min-width:110px;">UGX 0</span>
+    <button type="button" class="btn btn-sm btn-light border remove-row"><i class="bi bi-x-lg"></i></button>
+  </div>
+</template>
+
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/addservicerecord.js"></script>
+</body>
+</html>

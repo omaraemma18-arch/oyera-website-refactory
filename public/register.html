@@ -1,112 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Create an account with Oyera Auto Service Bay Ltd (OAS Bay).">
-  <title>Sign Up | Oyera Auto Service Bay Ltd (OAS Bay)</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8" />
+<title>Register Technician — Oyera Auto Service Bay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-light text-dark d-flex flex-column min-vh-100 position-relative" style="background: linear-gradient(rgba(000,000,00,0.05), rgba(00,00,00,0.05)), url('images/garage-storefront.jpg') center/cover no-repeat fixed;">
+<body>
 
-  <header class="header position-relative z-3">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom border-light-subtle shadow-sm">
-      <div class="container">
-        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2">
-          <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" width="30" height="30" class="d-inline-block align-text-top rounded">
-          <span class="fs-6 fw-bold text-dark">Oyera <strong class="text-warning">Auto Service Bay</strong></span>
-        </a>
-      </div>
-    </nav>
-  </header>
+<div class="app-shell">
+  <div id="app-shell"></div>
+  <div class="app-content">
+    <main id="page-content">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+          <div class="panel p-4">
+            <h2 class="mb-1" style="font-size:1.1rem;">Register a Technician</h2>
+            <p class="text-muted small mb-4">Creates a login account with the Technician role.</p>
 
-  <main class="flex-grow-1 d-flex align-items-center py-5 position-relative z-3">
-    <div class="container" style="max-width: 480px;">
-      <div class="card bg-white text-dark border-0 shadow-lg rounded-4">
-        <div class="card-body p-4">
+            <div class="form-alert error" id="formAlert"></div>
+            <div class="form-alert success" id="successAlert"></div>
 
-          <div class="text-center mb-4">
-            <span class="badge bg-warning text-dark text-uppercase px-2 py-1 mb-2 fw-bold">New Account</span>
-            <h1 class="h3 text-dark fw-bold mb-1">Create Account</h1>
-            <p class="text-muted small mb-0">Register as a customer, technician, senior technician, or admin.</p>
+            <form id="regForm" novalidate>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Full Name</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">Please enter the technician's full name.</div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Email</label>
+                <input type="email" class="form-control" id="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+              </div>
+              <div class="mb-4">
+                <label class="form-label small fw-semibold">Temporary Password</label>
+                <input type="password" class="form-control" id="password" required minlength="6">
+                <div class="invalid-feedback">Password must be at least 6 characters.</div>
+              </div>
+              <button type="submit" class="btn btn-oas px-4" id="submitBtn">Create Account</button>
+            </form>
           </div>
 
-          <div class="alert alert-danger d-none small py-2" role="alert" id="registerError"></div>
-
-          <form id="registerForm" action="/signup" method="post" class="needs-validation" novalidate>
-
-            <div class="mb-3">
-              <label for="regRole" class="form-label small fw-bold text-dark">Role</label>
-              <select name="regRole" id="regRole" class="form-select form-select-sm bg-light border-secondary-subtle" required>
-                <option value="customer">Customer</option>
-                <option value="technician">Technician</option>
-                <option value="senior_technician">Senior Technician</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-
-            <div class="mb-3">
-              <label for="regName" class="form-label small fw-bold text-dark">
-                Full Name <span class="text-danger">*</span>
-              </label>
-              <input name="regName" type="text" class="form-control form-control-sm bg-light border-secondary-subtle" id="regName" required placeholder="e.g. Jane Doe">
-              <div class="invalid-feedback small">Please enter your full name.</div>
-            </div>
-
-            <div class="row g-2 mb-3">
-              <div class="col-12 col-md-6">
-                <label for="regEmail" class="form-label small fw-bold text-dark">
-                  Email Address <span class="text-danger">*</span>
-                </label>
-                <input name="regEmail" type="email" class="form-control form-control-sm bg-light border-secondary-subtle" id="regEmail" required placeholder="you@email.com">
-                <div class="invalid-feedback small">Please enter a valid email.</div>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <label for="regPhone" class="form-label small fw-bold text-dark">Phone Number</label>
-                <input name="regPhone" type="tel" class="form-control form-control-sm bg-light border-secondary-subtle" id="regPhone" placeholder="07XX XXX XXX">
-              </div>
-            </div>
-
-            <div class="row g-2 mb-3">
-              <div class="col-12 col-md-6">
-                <label for="regPassword" class="form-label small fw-bold text-dark">
-                  Password <span class="text-danger">*</span>
-                </label>
-                <input name="regPassword" type="password" class="form-control form-control-sm bg-light border-secondary-subtle" id="regPassword" required minlength="6" placeholder="Min. 6 characters">
-                <div class="invalid-feedback small">Must be at least 6 characters.</div>
-              </div>
-
-              <div class="col-12 col-md-6">
-                <label for="regPasswordConfirm" class="form-label small fw-bold text-dark">
-                  Confirm Password <span class="text-danger">*</span>
-                </label>
-                <input name="regPasswordConfirm" type="password" class="form-control form-control-sm bg-light border-secondary-subtle" id="regPasswordConfirm" required minlength="6" placeholder="Repeat password">
-                <div class="invalid-feedback small">Passwords must match.</div>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold mt-2 text-dark" id="registerSubmitBtn">Create Account</button>
-
-          </form>
-
-          <p class="text-muted small mt-4 text-center mb-0">
-            Already have an account? <a href="login.html" class="text-dark text-decoration-underline fw-semibold">Log in</a>
-          </p>
-
+          <div class="panel p-4 mt-4">
+            <h2 class="mb-3" style="font-size:1.1rem;">Existing Technicians</h2>
+            <div id="techList" class="small"></div>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
+</div>
 
-  <footer class="footer bg-white border-top border-light-subtle py-3 mt-auto text-center position-relative z-3 shadow-sm">
-    <div class="container">
-      <p class="text-muted small mb-0">&copy; 2026 <span class="text-dark fw-semibold">Oyera Auto Service Bay Ltd (OAS Bay)</span>. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/register.js"></script>
 </body>
 </html>

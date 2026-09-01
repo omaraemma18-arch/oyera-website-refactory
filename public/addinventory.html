@@ -1,140 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Staff dashboard for Oyera Auto Service Bay Ltd (OAS Bay) — manage inventory and bookings.">
-  <title>Oyera Auto Service Bay Ltd (OAS Bay)</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+<meta charset="UTF-8" />
+<title>Add Inventory Item — Oyera Auto Service Bay</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/vendor/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-light d-flex flex-column min-vh-100">
+<body>
 
-  <header class="header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary">
-      <div class="container">
-        <a href="index.html" class="navbar-brand d-flex align-items-center gap-2">
-          <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" width="30" height="30" class="d-inline-block align-text-top rounded">
-          <span class="fs-6">Oyera <strong class="text-warning">Auto Service Bay</strong></span>
-        </a>
+<div class="app-shell">
+  <div id="app-shell"></div>
+  <div class="app-content">
+    <main id="page-content">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+          <div class="panel p-4">
+            <h2 class="mb-1" style="font-size:1.1rem;" id="formTitle">Add Inventory Item</h2>
+            <p class="text-muted small mb-4">Unit costs are in Ugandan Shillings (UGX).</p>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks" aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+            <div class="form-alert error" id="formAlert"></div>
+            <div class="form-alert success" id="successAlert"></div>
 
-        <div class="collapse navbar-collapse" id="navLinks">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="addnewcustomer.html">Add New Customer</a></li>
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="addinventory.html">Add Inventory</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="inventory.html">Inventory</a></li>
-            <li class="nav-item" id="authNavSlot"></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <br><br><br>
-
-  <main class="flex-grow-1">
-    <section class="py-4 bg-secondary bg-opacity-10 border-bottom border-secondary">
-      <div class="container style-container" style="max-width: 750px;">
-        <span class="badge bg-danger mb-2">Staff Only</span>
-        <h1 class="h3 text-white fw-bold mb-1">Add New Inventory</h1>
-        <p class="text-muted small mb-0">Add a part or supply to the OAS Bay inventory.</p>
-      </div>
-    </section>
-
-    <section class="py-4">
-      <div class="container" style="max-width: 750px;">
-        <div class="card bg-dark text-light border-secondary">
-          <div class="card-body p-4">
-            <form id="addItemForm" action="/addinventory" method="post" class="needs-validation" novalidate>
-              
-              <input type="hidden" name="partNumber" value="GEN-PART">
-
+            <form id="itemForm" novalidate>
               <div class="mb-3">
-                <label for="itemName" class="form-label small fw-bold text-light">
-                  Item Name <span class="text-danger">*</span>
-                </label>
-                <input name="itemName" type="text" class="form-control form-control-sm" id="itemName" required placeholder="e.g. Engine Oil 5W-30 (5L)">
-                <div class="invalid-feedback small" id="itemNameError">Please enter an item name.</div>
+                <label class="form-label small fw-semibold">Item Name</label>
+                <input type="text" class="form-control" id="name" required>
+                <div class="invalid-feedback">Please enter the item name.</div>
               </div>
-
-              <div class="mb-3">
-                <label for="itemCategory" class="form-label small fw-bold text-light">Category</label>
-                <select name="category" id="itemCategory" class="form-select form-select-sm">
-                  <option>Engine Oil</option>
-                  <option>Gearbox Oil</option>
-                  <option>Brake Fluid</option>
-                  <option>Filters</option>
-                  <option>Brake Pads</option>
-                  <option>Tyres</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="itemSupplier" class="form-label small fw-bold text-light">Supplier</label>
-                <input name="supplier" type="text" class="form-control form-control-sm" id="itemSupplier" placeholder="e.g. Total Uganda">
-              </div>
-
-              <div class="row g-2 mb-3">
-                <div class="col-12 col-md-6">
-                  <label for="unitPrice" class="form-label small fw-bold text-light">
-                    Unit Price (UGX) <span class="text-danger">*</span>
-                  </label>
-                  <input name="unitPrice" type="number" class="form-control form-control-sm" id="unitPrice" min="0" required placeholder="e.g. 45000">
-                  <div class="invalid-feedback small" id="itemCostError">Please enter a valid price.</div>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Category</label>
+                  <input type="text" class="form-control" id="category" placeholder="e.g. Fluids">
                 </div>
-
-                <div class="col-12 col-md-6">
-                  <label for="quantityInStock" class="form-label small fw-bold text-light">
-                    Quantity in Stock <span class="text-danger">*</span>
-                  </label>
-                  <input name="quantityInStock" type="number" class="form-control form-control-sm" id="quantityInStock" min="0" step="1" required placeholder="e.g. 10">
-                  <div class="invalid-feedback small" id="itemQtyError">Please enter a valid quantity.</div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Supplier</label>
+                  <input type="text" class="form-control" id="supplier" placeholder="Optional">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Unit Cost (UGX)</label>
+                  <input type="number" class="form-control" id="unitCost" min="0" step="1" required>
+                  <div class="invalid-feedback">Please enter a valid cost.</div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-semibold">Quantity in Stock</label>
+                  <input type="number" class="form-control" id="quantity" min="0" step="1" required>
+                  <div class="invalid-feedback">Please enter a valid quantity.</div>
                 </div>
               </div>
 
-              <div class="row g-2 pt-2">
-                <div class="col-6">
-                  <a href="inventory.html" class="btn btn-outline-light btn-sm w-100">‹ Back to Inventory</a>
-                </div>
-                <div class="col-6">
-                  <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold" id="addItemSubmitBtn">Add Item</button>
-                </div>
-              </div>
-
+              <button type="submit" class="btn btn-oas px-4 mt-4" id="submitBtn">Add Item</button>
+              <a href="/inventory" class="btn btn-light border px-4 mt-4">Cancel</a>
             </form>
           </div>
         </div>
-
-        <p class="text-muted small mt-3 text-center mb-0">
-          New items are saved straight into the inventory shown on the Staff Dashboard.
-        </p>
       </div>
-    </section>
-  </main>
+    </main>
+  </div>
+</div>
 
-  <footer class="footer bg-dark border-top border-secondary py-4 mt-auto">
-    <div class="container">
-      <div class="row g-3 align-items-center">
-        <div class="col-12 col-md-8">
-          <a href="index.html" class="navbar-brand d-flex align-items-center gap-2 mb-2">
-            <img src="images/oyera-logo.jpg" alt="Oyera Auto Service Bay Ltd logo" width="24" height="24" class="rounded">
-            <span class="fs-6 text-light">Oyera <strong class="text-warning">Auto Service Bay</strong></span>
-          </a>
-          <p class="text-muted small mb-0">Oyera Auto Service Bay Ltd (OAS Bay) — service and parts for heavy, small, and commercial vehicles.</p>
-        </div>
-        <div class="col-12 col-md-4 text-md-end">
-          <p class="text-muted small mb-0">&copy; 2026 Oyera Auto Service Bay Ltd (OAS Bay). All rights reserved.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/layout.js"></script>
+<script src="/js/addinventory.js"></script>
 </body>
 </html>
