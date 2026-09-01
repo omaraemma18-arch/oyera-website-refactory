@@ -1,10 +1,10 @@
 import express from 'express';
-import { listServiceRecords } from '../controllers/serviceRecordController.mjs';
-import { requireAuth } from '../middleware/auth.mjs';
+import { listServiceRecords, createServiceRecord } from '../controllers/serviceRecordController.mjs';
+import { requireAuth, requireRole } from '../middleware/auth.mjs';
 
 const router = express.Router();
 
-// Service history — visible to both admin and technicians
 router.get('/api/service-records', requireAuth, listServiceRecords);
+router.post('/api/service-records', requireAuth, requireRole('technician', 'admin'), createServiceRecord);
 
 export default router;

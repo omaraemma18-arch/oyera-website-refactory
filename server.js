@@ -1,4 +1,4 @@
-// server.mjs
+
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -48,8 +48,11 @@ app.get('/signup', (req, res) => res.sendFile(path.join(__dirname, 'public', 're
 app.get('/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'login.html')));
 app.get('/inventory', (req, res) => res.sendFile(path.join(__dirname, 'public', 'inventory.html')));
 app.get('/addinventory', (req, res) => res.sendFile(path.join(__dirname, 'public', 'addinventory.html')));
-app.get('/servicerecords', (req, res) => res.sendFile(path.join(__dirname, 'public', 'servicerecords.html')));
+app.get('/addservicerecord', (req, res) => res.sendFile(path.join(__dirname, 'public', 'addservicerecord.html')));
 app.get('/addnewcustomer', (req, res) => res.sendFile(path.join(__dirname, 'public', 'addnewcustomer.html')));
+app.get('/servicerecords', (req, res) => res.sendFile(path.join(__dirname, 'public', 'servicerecords.html')));
+app.get('/customer', (req, res) => res.sendFile(path.join(__dirname, 'public', 'customer.html')));
+
 
 app.use((req, res) => {
   res.status(404).send('Oopps, route not found....');
