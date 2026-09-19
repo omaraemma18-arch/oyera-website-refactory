@@ -1,4 +1,4 @@
-
+// imports and server
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -36,11 +36,13 @@ mongoose.connection
     console.error('MongoDB connection error:', err);
   });
 
+  // api routes
 app.use(addInventoryRoutes);
 app.use(authRoutes);
 app.use(addNewCustomerRoutes);
 app.use(serviceRecordsRoutes);
 
+// page routes
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'public', 'dashboard.html')));
 app.get('/services', (req, res) => res.sendFile(path.join(__dirname, 'public', 'services.html')));
