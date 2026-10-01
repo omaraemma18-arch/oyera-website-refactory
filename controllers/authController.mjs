@@ -20,17 +20,20 @@ export async function login(req, res) {
 
     const user = await User.findOne({ email: String(email).toLowerCase().trim() });
     if (!user) {
+      console.log(`[Login Info] User not found for email: ${email}`);
       return res.status(401).json({ error: 'Incorrect email or password.' });
     }
 
     const matches = await bcrypt.compare(password, user.passwordHash);
     if (!matches) {
+      console.log(`[Login Info] Incorrect password for email: ${email}`);
       return res.status(401).json({ error: 'Incorrect email or password.' });
     }
 
     const token = signToken(user);
     res.json({ token, user: user.toSafeObject() });
-  } catch {
+  } catch (err) {
+    console.error('CRITICAL LOGIN CONTROLLER ERROR:', err);
     res.status(500).json({ error: 'Something went wrong logging in. Please try again.' });
   }
 }
@@ -62,7 +65,8 @@ export async function registerTechnician(req, res) {
     });
 
     res.status(201).json({ user: technician.toSafeObject() });
-  } catch {
+  } catch (err) {
+    console.error('CRITICAL REGISTER ERROR:', err);
     res.status(500).json({ error: 'Something went wrong creating the account. Please try again.' });
   }
 }
@@ -73,7 +77,8 @@ export async function me(req, res) {
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ error: 'User not found.' });
     res.json({ user: user.toSafeObject() });
-  } catch {
+  } catch (err) {
+    console.error('CRITICAL ME ERROR:', err);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 }
@@ -83,7 +88,8 @@ export async function listTechnicians(req, res) {
   try {
     const technicians = await User.find({ role: 'technician' }).sort({ name: 1 });
     res.json({ technicians: technicians.map((t) => t.toSafeObject()) });
-  } catch {
+  } catch (err) {
+    console.error('CRITICAL LIST TECHNICIANS ERROR:', err);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 }
